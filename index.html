@@ -114,38 +114,11 @@
             if (!roomNumber) {
                 alert("กรุณากรอกหมายเลขห้อง!");
                 return;
+            } else{
+                alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`);
+                return;
             }
-
-            genexcel(quantity, roomNumber);
         }
-    
-        function genexcel(quantity, roomNumber) {
-            generateExcel()
-            //alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`)
-        }
-
-        function generateExcel() {
-            // เก็บข้อมูลจาก input
-            const roomNumber = document.getElementById("room-number").value;
-            const quantity = document.getElementById("quantity").value;
-
-            // สร้างข้อมูลในรูปแบบ Array
-            const orderData = [
-                ["หมายเลขห้อง", "จำนวนที่สั่งซื้อ"],
-                [roomNumber, quantity]
-            ];
-
-            // สร้าง Workbook และ Worksheet
-            const ws = XLSX.utils.aoa_to_sheet(orderData);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "คำสั่งซื้อ");
-
-            // บันทึกไฟล์ Excel
-            XLSX.writeFile(wb, "order.xlsx");
-
-            // รีเซ็ตฟอร์ม
-            document.getElementById("room-number").value = "";
-            document.getElementById("quantity").value = "";
         }
     </script>
 
