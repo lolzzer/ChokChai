@@ -95,7 +95,7 @@
 
         <input type="number" id="roomNumber" placeholder="กรอกหมายเลขห้อง" min="1">
 
-        <button class="order-btn" onclick="placeOrder()">🛒 สั่งซื้อเลย</button>
+        <button class="order-btn" onclick="submitOrder()">🛒 สั่งซื้อเลย</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
     <script>
@@ -107,20 +107,37 @@
             orderNumber.textContent = currentQuantity;
         }
 
-        function placeOrder() {
-            const quantity = document.getElementById("orderNumber").textContent;
-            const roomNumber = document.getElementById("roomNumber").value;
+        <script>
+        async function submitOrder() {
+            const roomNumber = document.getElementById("room-number").value;
+            const quantity = document.getElementById("quantity").value;
 
-            if (!roomNumber) {
-                alert("กรุณากรอกหมายเลขห้อง!");
+            // ตรวจสอบให้แน่ใจว่ามีข้อมูลที่ต้องการ
+            if (!roomNumber || !quantity) {
+                alert("กรุณากรอกหมายเลขห้องและจำนวนที่ต้องการสั่ง!");
                 return;
             }
 
-            sendLineNotify(quantity, roomNumber);
-        }
-    
-        function sendLineNotify(quantity, roomNumber) {
-            alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`)
+            // ส่งข้อมูลไปที่ Backend
+            const response = await fetch('http://localhost:3000/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ roomNumber, quantity })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message); // แจ้งผลการสั่งซื้อ
+            } else {
+                alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+            }
+
+            // รีเซ็ตฟอร์ม
+            document.getElementById("room-number").value = "";
+            document.getElementById("quantity").value = "";
         }
     </script>
 
