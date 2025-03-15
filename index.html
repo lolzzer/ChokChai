@@ -116,11 +116,11 @@
                 return;
             }
 
-            alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`);
             sendLineNotify(quantity, roomNumber);
         }
     
         function sendLineNotify(quantity, roomNumber) {
+            alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`);
             const token = "1xzNt537Kvo1TI9Lplivtx5lINyBI4jBIITIHAYdmAV"; // 🔴 ใส่ Token ที่ได้จาก LINE Notify
             const message = `📢 สั่งซื้อแซนด์วิชเกาหลี\n🍞 จำนวน: ${quantity} ชิ้น\n🏠 ห้อง: ${roomNumber}`;
             fetch("https://notify-api.line.me/api/notify", {
