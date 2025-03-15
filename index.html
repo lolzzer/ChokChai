@@ -93,11 +93,11 @@
             <button onclick="changeQuantity(1)">➕</button>
         </div>
 
-        <input type="number" id="roomNumber" placeholder="กรอกหมายเลขห้อง." min="1">
+        <input type="number" id="roomNumber" placeholder="กรอกหมายเลขห้อง" min="1">
 
         <button class="order-btn" onclick="placeOrder()">🛒 สั่งซื้อเลย</button>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
     <script>
         function changeQuantity(change) {
             const orderNumber = document.getElementById("orderNumber");
@@ -120,19 +120,7 @@
         }
     
         function sendLineNotify(quantity, roomNumber) {
-            const token = "1xzNt537Kvo1TI9Lplivtx5lINyBI4jBIITIHAYdmAV"; // 🔴 ใส่ Token ที่ได้จาก LINE Notify
-            const message = `📢 สั่งซื้อแซนด์วิชเกาหลี\n🍞 จำนวน: ${quantity} ชิ้น\n🏠 ห้อง: ${roomNumber}`;
-            fetch("https://192.168.1.100:3000/send-line", { // 🔴 ใช้เซิร์ฟเวอร์ Node.js ของเราแทน
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message })
-        })
-            .then(response => response.json())
-            .then(data => console.log("ส่ง LINE สำเร็จ:", data))
-            .then(alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`))
-            .catch(error => console.error("เกิดข้อผิดพลาด:", error));
+            alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`)
         }
     </script>
 
