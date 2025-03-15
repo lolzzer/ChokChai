@@ -93,7 +93,7 @@
             <button onclick="changeQuantity(1)">➕</button>
         </div>
 
-        <input type="number" id="roomNumber" placeholder="กรอกหมายเลขห้อง" min="1">
+        <input type="number" id="roomNumber" placeholder="กรอกหมายเลขห้อง." min="1">
 
         <button class="order-btn" onclick="placeOrder()">🛒 สั่งซื้อเลย</button>
     </div>
@@ -122,7 +122,7 @@
         function sendLineNotify(quantity, roomNumber) {
             const token = "1xzNt537Kvo1TI9Lplivtx5lINyBI4jBIITIHAYdmAV"; // 🔴 ใส่ Token ที่ได้จาก LINE Notify
             const message = `📢 สั่งซื้อแซนด์วิชเกาหลี\n🍞 จำนวน: ${quantity} ชิ้น\n🏠 ห้อง: ${roomNumber}`;
-            fetch("http://192.168.1.100:3000/send-line", { // 🔴 ใช้เซิร์ฟเวอร์ Node.js ของเราแทน
+            fetch("https://192.168.1.100:3000/send-line", { // 🔴 ใช้เซิร์ฟเวอร์ Node.js ของเราแทน
         method: "POST",
         headers: {
             "Content-Type": "application/json"
