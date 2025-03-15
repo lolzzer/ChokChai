@@ -99,18 +99,6 @@
     </div>
 
     <script>
-        function previewImage(event) {
-            const preview = document.getElementById("preview");
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
         function changeQuantity(change) {
             const orderNumber = document.getElementById("orderNumber");
             let currentQuantity = parseInt(orderNumber.textContent);
@@ -118,6 +106,8 @@
             if (currentQuantity < 1) currentQuantity = 1;
             orderNumber.textContent = currentQuantity;
         }
+
+        
 
         function placeOrder() {
             const quantity = document.getElementById("orderNumber").textContent;
@@ -129,24 +119,9 @@
             }
 
             alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`);
+            sendLineNotify(quantity, roomNumber);
         }
     </script>
 
 </body>
 </html>
-function sendLineNotify(quantity, roomNumber) {
-    const token = "YOUR_LINE_NOTIFY_TOKEN"; // 🔴 ใส่ Token ที่ได้จาก LINE Notify
-    const message = `📢 สั่งซื้อแซนด์วิชเกาหลี\n🍞 จำนวน: ${quantity} ชิ้น\n🏠 ห้อง: ${roomNumber}`;
-
-    fetch("https://notify-api.line.me/api/notify", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": `Bearer ${token}`
-        },
-        body: `message=${encodeURIComponent(message)}`
-    })
-    .then(response => response.json())
-    .then(data => console.log("ส่ง LINE สำเร็จ:", data))
-    .catch(error => console.error("เกิดข้อผิดพลาด:", error));
-}
