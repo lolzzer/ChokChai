@@ -120,10 +120,9 @@
         }
     
         function sendLineNotify(quantity, roomNumber) {
-            alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`);
             const token = "1xzNt537Kvo1TI9Lplivtx5lINyBI4jBIITIHAYdmAV"; // 🔴 ใส่ Token ที่ได้จาก LINE Notify
             const message = `📢 สั่งซื้อแซนด์วิชเกาหลี\n🍞 จำนวน: ${quantity} ชิ้น\n🏠 ห้อง: ${roomNumber}`;
-            fetch("http://localhost:3000/send-line", { // 🔴 ใช้เซิร์ฟเวอร์ Node.js ของเราแทน
+            fetch("http://192.168.1.100:3000/send-line", { // 🔴 ใช้เซิร์ฟเวอร์ Node.js ของเราแทน
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -132,6 +131,7 @@
         })
             .then(response => response.json())
             .then(data => console.log("ส่ง LINE สำเร็จ:", data))
+            .then(alert(`✅ คำสั่งซื้อสำเร็จ!\n📦 แซนด์วิช ${quantity} ชิ้น\n🏠 ห้อง ${roomNumber}`))
             .catch(error => console.error("เกิดข้อผิดพลาด:", error));
         }
     </script>
